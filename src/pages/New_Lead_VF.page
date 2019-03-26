@@ -1,0 +1,49 @@
+<apex:page StandardController="Lead" extensions="New_Lead_Controller" tabStyle="Lead">
+    <apex:sectionHeader title="Lead" subtitle="{!lead.name}"/>
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>&nbsp;&nbsp;
+                <apex:commandButton action="{!save_new}" value="Save & New"/>&nbsp;&nbsp;
+                <apex:commandButton action="{!cancel}" value="Cancel" />
+            </apex:pageBlockButtons>    
+            <apex:pageBlockSection title="Lead Information" columns="2" collapsible="true"> 
+                <apex:inputField value="{!lead.Status}" />
+                <apex:inputField value="{!lead.Select_Owner__c}" required="true"/>
+                <!--<apex:inputField value = "{!lead.Salutation}" />-->
+                <apex:inputField value="{!lead.FirstName}" required="true"/>
+                <apex:inputField value="{!lead.Website}"/>     
+                <apex:inputField value="{!lead.MiddleName}"/>     
+                <apex:inputField value="{!lead.Company}" required="true"/>     
+                <apex:inputField value="{!lead.LastName}" required="true"/>     
+                <apex:inputField value="{!lead.Industry}"/>     
+                <apex:inputField value="{!lead.Suffix}"/>     
+                <apex:inputField value="{!lead.NumberOfEmployees}"/>     
+                <apex:inputField value="{!lead.Title}"/>   
+                <apex:selectList value="{!selectedReason}" multiselect="false" size="1" label="Lead Rejected Reason">
+                    <apex:selectOptions value="{!RejectedReasonOptions}"/>
+                </apex:selectList>
+                <apex:inputField value="{!lead.Email}"/>     
+                <apex:inputField value="{!lead.LeadSource}"/>     
+                <apex:inputField value="{!lead.Phone}"/>     
+                <apex:inputField value="{!lead.Rating}"/>     
+                <apex:inputField value="{!lead.MobilePhone}"/>
+                <!--Start - Code Added By Raghav Kulkarni to capture Source_Code__c field/>-->
+                <apex:inputField value="{!lead.Source_Code__c}"/>
+                <!--End - Code Added By Raghav Kulkarni to capture Source_Code__c field/>-->
+            </apex:pageBlockSection>
+            <apex:pageBlockSection showHeader="false" columns="1" >
+            <apex:inputTextarea value="{!lead.Comments__c}"  label="Comments" cols="1000" rows="10" richText="true"/><p/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Address Information" columns="1">    
+                <apex:inputField value="{!lead.Street}" required="true" label="Address"/>            
+                <apex:inputField value="{!lead.City}" required="false"/>
+                <apex:inputField value="{!lead.CountryCode}" required="false" label="Country"/>  
+                <apex:inputField value="{!lead.StateCode}" label="State" required="false"/>                                 
+                <apex:inputField value="{!lead.PostalCode}" required="false"/>                                       
+                <apex:inputField value="{!lead.User_Validated__c}" rendered="{!showField}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,58 @@
+<apex:page StandardController="Account" extensions="New_Account_Controller">
+    <apex:sectionHeader title="Account" subtitle="{!account.name}"/>
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>&nbsp;&nbsp;
+                <apex:commandButton action="{!save_new}" value="Save & New"/>&nbsp;&nbsp;
+                <apex:commandButton action="{!cancel}" value="Cancel" />
+            </apex:pageBlockButtons>    
+            <apex:pageBlockSection title="Account Information" columns="2" collapsible="true"> 
+                <apex:inputField value="{!account.Name}" required="true" rendered="{!showInputAccountName}"/>
+                <apex:outputField value="{!account.Name}" rendered="{!showOutputAccountName}"/>
+                <apex:inputField value="{!account.Number_of_Attorneys__c}" required="false" rendered="{!showInputAttorney}"/>
+                <apex:outputField value="{!account.Number_of_Attorneys__c}" rendered="{!showOutputAttorney}"/>
+                <apex:outputField value="{!account.ParentId}"/>
+                <apex:inputField value="{!account.Phone}" required="false" rendered="{!showInputPhone}"/>     
+                <apex:outputField value="{!account.Phone}" rendered="{!showOutputPhone}"/> 
+                <apex:outputField value="{!account.Account_Status__c}"/>     
+                <apex:inputField value="{!account.Website}" required="false"/> 
+                <apex:inputField value="{!account.Practice_Area__c}" required="false"/>
+                <!--<apex:outputField value="{!account.Practice_Area__c}" rendered="{!showOutputCustomerClass}"/>    -->
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Address Information" columns="1">               
+                <apex:inputField value="{!account.BillingStreet}" rendered="{!showInputBillingStreet}" required="true"/>
+                <apex:outputField value="{!account.BillingStreet}" rendered="{!showOutputBillingStreet}"/>
+                <apex:inputField value="{!account.BillingCity}" required="false" rendered="{!showInputBillingCity}"/>  
+                <apex:outputField value="{!account.BillingCity}" rendered="{!showOutputBillingCity}"/>
+                <apex:inputField value="{!account.BillingCountryCode}" label="Country" required="false" rendered="{!showInputBillingCountry}"/> 
+                <apex:outputField value="{!account.BillingCountryCode}" label="Country" rendered="{!showOutputBillingCountry}"/>  
+                <apex:inputField value="{!account.BillingStateCode}" label="State" required="false" rendered="{!showInputBillingState}"/>                 
+                <apex:outputField value="{!account.BillingStateCode}" label="State" rendered="{!showOutputBillingState}"/>                 
+                <apex:inputField value="{!account.BillingPostalCode}" required="false" rendered="{!showInputBillingZipCode}"/>                                   
+                <apex:outputField value="{!account.BillingPostalCode}" rendered="{!showOutputBillingZipCode}"/>                                   
+                <apex:inputField value="{!account.County__c}" required="false" rendered="{!showInputBillingCounty}"/>     
+                <apex:outputField value="{!account.County__c}" rendered="{!showOutputBillingCounty}"/>                     
+                <apex:inputField value="{!account.User_Validated__c}" rendered="{!showField}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Account Classifications" columns="2">
+                <apex:inputField value="{!account.Customer_Class__c}" required="true" rendered="{!showInputCustomerClass}"/>
+                <apex:outputField value="{!account.Customer_Class__c}" rendered="{!showOutputCustomerClass}"/>
+                <apex:inputField value="{!account.Industry_Class__c}" required="false" rendered="{!showInputCustomerClass}"/>
+                <apex:outputField value="{!account.Industry_Class__c}" rendered="{!showOutputCustomerClass}"/>
+                <apex:inputField value="{!account.Customer_Sub_Class__c}" required="true" rendered="{!showInputCustomerClass}"/>
+                <apex:outputField value="{!account.Customer_Sub_Class__c}" rendered="{!showOutputCustomerClass}"/>
+                <apex:inputField value="{!account.Industry_Sub_Class__c}" required="false" rendered="{!showInputCustomerClass}"/>   
+                <apex:outputField value="{!account.Industry_Sub_Class__c}" rendered="{!showOutputCustomerClass}"/>
+                <apex:inputField value="{!account.Secondary_Sub_Class__c}" required="true" rendered="{!showInputCustomerClass}"/>
+                <apex:outputField value="{!account.Secondary_Sub_Class__c}" rendered="{!showOutputCustomerClass}"/>                
+                <apex:inputField value="{!account.Category__c}" required="false" rendered="{!showInputCustomerClass}"/>
+                <apex:outputField value="{!account.Category__c}" rendered="{!showOutputCustomerClass}"/>
+            </apex:pageBlockSection>            
+            <apex:pageBlockSection title="Additional Information" columns="2">
+                <apex:inputField value="{!account.Description}" required="false"/>         
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

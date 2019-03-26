@@ -1,0 +1,40 @@
+<apex:page StandardController="Address__c" extensions="New_Address_Controller" tabStyle="Address__c">
+    <apex:sectionHeader title="Address__c" subtitle="{!Address__c.name}"/>
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>&nbsp;&nbsp;
+                <apex:commandButton action="{!save_new}" value="Save & New"/>&nbsp;&nbsp;
+                <apex:commandButton action="{!cancel}" value="Cancel" />
+            </apex:pageBlockButtons>    
+            <apex:pageBlockSection title="Information" columns="1" collapsible="true"> 
+                <apex:inputField value="{!Address__c.Account__c}" rendered="{!showInputAccountName}" />
+                <apex:outputField value="{!Address__c.Account__c}" rendered="{!showOutputAccountName}" />
+                <apex:inputField value="{!Address__c.Billing_Street__c}" required="true" rendered="{!showInputAddress}"/>
+                <apex:outputField value="{!Address__c.Billing_Street__c}" rendered="{!showOutputAddress}"/>
+                <apex:inputField value="{!Address__c.Billing_City__c}" required="false" rendered="{!showInputCity}"/>     
+                <apex:outputField value="{!Address__c.Billing_City__c}" rendered="{!showOutputCity}"/>
+                <apex:inputField value="{!Address__c.Billing_Country__c}" rendered="{!showInputCountry}" />
+                <apex:outputField value="{!Address__c.Billing_Country__c}" rendered="{!showOutputCountry}" />                        
+                <apex:inputField value="{!Address__c.Billing_State_Province__c}" rendered="{!showInputState}" />
+                <apex:outputField value="{!Address__c.Billing_State_Province__c}" rendered="{!showOutputState}" />
+                <apex:inputField value="{!Address__c.Billing_Zip_Postal_Code__c}" required="false" rendered="{!showInputZipcode}"/>     
+                <apex:outputField value="{!Address__c.Billing_Zip_Postal_Code__c}" rendered="{!showOutputZipcode}"/>
+                <apex:inputField value="{!Address__c.County__c}" required="False" rendered="{!showInputCounty}"/>
+                <apex:outputField value="{!Address__c.County__c}" rendered="{!showOutputCounty}"/>
+                <apex:outputText value="{!Address__c.POBPGUID__c}" rendered="false" />               
+                <!--<apex:selectList value="{!Address__c.Billing_Country__c}" rendered="{!showInputCountry}" multiselect="false" size="1" label="Country" required="false">
+                    <apex:selectOptions value="{!Countries}"/>
+                </apex:selectList>-->                
+                <apex:inputField value="{!Address__c.PhonePOB__c}" rendered="{!showInputPhone}"/>                                     
+                <apex:outputField value="{!Address__c.PhonePOB__c}" rendered="{!showOutputPhone}"/>
+                <apex:inputField value="{!Address__c.End_Date__c}" rendered="{!showInputEndDate}" />
+                <apex:outputField value="{!Address__c.End_Date__c}" rendered="{!showOutputEndDate}"/>
+                <apex:outputField value="{!Address__c.Primary__c}" rendered="{!showOutputPrimary}"/>
+                <apex:inputField value="{!Address__c.Primary__c}" rendered="{!showInputPrimary}"/>
+                <apex:inputField value="{!Address__c.User_Validated__c}" rendered="{!showField}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

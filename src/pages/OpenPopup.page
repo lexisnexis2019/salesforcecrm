@@ -1,0 +1,13 @@
+<apex:page lightningStylesheets="true">
+        <apex:outputLink value="mailto:{!$Label.SFDC_Help_Email}"> Click to send email
+        </apex:outputLink>    
+        <!--<apex:outputLink onclick="openPopup('{!$Page.Email_Composer}','Test');">
+            <font color="blue"><b>{!$Label.SFDC_Help_Link_Name}</b></font>
+        </apex:outputLink>
+        <apex:image />-->
+    <script>
+    function openPopup(page){
+        window.open(page,'_blank', 'width=700,height=500,left=200,top=5,scrollbars,toolbar=0,resizable')
+    }
+    </script>
+</apex:page>

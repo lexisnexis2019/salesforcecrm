@@ -1,0 +1,92 @@
+<apex:page controller="CampaignMembersListController" showheader="True">
+<apex:includeScript value="/support/console/24.0/integration.js"/>
+
+<apex:form >
+    <apex:pageBlock title="My Campaign Members" id="my_cm" >
+
+       <apex:pageblockButtons location="Top">
+         <apex:outputPanel id="myButtons">
+           <apex:commandButton action="{!Beginning}" title="Beginning" value="<< First" disabled="{!disablePrevious}" reRender="myPanel,myButtons"/>
+            <apex:commandButton action="{!Previous}" title="Previous" value="< Previous" disabled="{!disablePrevious}" reRender="myPanel,myButtons"/>
+            <apex:commandButton action="{!Next}" title="Next" value="Next >" disabled="{!disableNext}" reRender="myPanel,myButtons"/>
+            <apex:commandButton action="{!End}" title="End" value="Last >>" disabled="{!disableNext}" reRender="myPanel,myButtons"/> 
+         </apex:outputPanel>
+       </apex:pageblockButtons>
+       
+        <!-- <apex:outputText value="Total Number of Records: {!Total_size}" style="float:left;"/> -->
+        
+       <apex:pageBlockTable value="{!CampaignMembers}" var="c" id="myPanel" >
+            <apex:column headerValue="Contact" > 
+                <apex:commandLink value="{!c.Contact.name}" action="{!selcon}" >
+                    <apex:param name="cid" value="{!c.ContactID}"/>
+                </apex:commandLink>
+            </apex:column>
+            <apex:column headerValue="Lead" >
+                <apex:commandLink value="{!c.Lead.name}" action="{!sellead}">
+                    <apex:param name="lid" value="{!c.LeadID}"/>
+                </apex:commandLink>
+            </apex:column>
+            <apex:column headerValue="CampaignID" value="{!c.CampaignID}"/>
+            <apex:column headerValue="Treatment" value="{!c.Treatment__c}"/>
+            <apex:column headerValue="Status" value="{!c.Status}" id="cstatus"/>
+            <apex:column headerValue="Campaign Comment" value="{!c.Campaign_Comment__c}" id="ccomment"/>
+            <apex:column headerValue="Outcome" value="{!c.Outcome__c}" id="coutcome"/>
+            <apex:column headerValue="Done" value="{!c.Done__c}" id="cdone"/>
+            <apex:column headerValue="Priority" value="{!c.Priority__c}" id="cpriority"/>
+            
+            <apex:facet name="footer">
+            <apex:outputText value="Showing Page: {!pageNumber} of {!totalPages}" style="float:right;"/>
+            </apex:facet> 
+        </apex:pageBlockTable>
+     </apex:pageBlock>
+          
+     <apex:pageBlock title="Selected Contact"  rendered="{!IF($CurrentPage.parameters.conid != null, TRUE, FALSE)}">
+        <apex:pageBlockTable value="{!conlst}" var="con" id="Con1">
+            <apex:column HeaderValue="Contact Name">
+                <apex:commandLink reRender="false" onclick="window.open('/{!con.Id}','_blank');"> {!con.Name}
+                </apex:commandLink>
+                </apex:column>
+               <apex:column HeaderValue="Contact Work Phone">  
+                   <support:clickToDial number="{!con.Phone}" entityId="{!con.Id}" />
+               </apex:column>
+               <apex:column HeaderValue="Account Name">
+                   <apex:outputText value="{!con.Account.name}"/>
+               </apex:column> 
+               <apex:column HeaderValue="Account Phone #">
+                   <apex:outputText value="{!con.Account.Phone}"/>
+               </apex:column>
+               <apex:column HeaderValue="Contact Email">  
+                   <apex:outputText value="{!con.Email}"/>
+               </apex:column>
+        </apex:pageBlockTable>
+     </apex:pageBlock>
+        
+     <apex:pageBlock title="Selected Lead" rendered="{!IF($CurrentPage.parameters.leadid != null, TRUE, FALSE)}">
+        <apex:pageBlockTable value="{!leadlst}" var="ld" id="Lead1">
+               <apex:column HeaderValue="Lead Name">
+                   <apex:commandLink reRender="false" onclick="window.open('/{!ld.Id}','_blank');"> {!ld.Name}
+                    </apex:commandLink>
+               </apex:column>
+               <apex:column HeaderValue="Lead Phone">  
+                   <support:clickToDial number="{!ld.Phone}" entityId="{!ld.Id}" />
+               </apex:column>
+               
+               <apex:column HeaderValue="Lead Email">  
+                   <apex:outputText value="{!ld.Email}"/>
+               </apex:column>
+               <apex:column HeaderValue="Company">  
+                   <apex:outputText value="{!ld.Company}"/>
+               </apex:column>
+        </apex:pageBlockTable>
+      </apex:pageBlock>
+        
+ </apex:form> 
+       
+       <apex:relatedList list="OpenActivities" subject="{!$CurrentPage.parameters.conid}" />
+       <apex:relatedList list="ActivityHistories" subject="{!$CurrentPage.parameters.conid}"/>
+       <apex:relatedlist list="CampaignMembers" subject="{!$CurrentPage.parameters.conid}"/>
+       <apex:relatedList list="OpenActivities" subject="{!$CurrentPage.parameters.leadid}"/>
+       <apex:relatedList list="ActivityHistories" subject="{!$CurrentPage.parameters.leadid}"/>
+       <apex:relatedlist list="CampaignMembers" subject="{!$CurrentPage.parameters.leadid}"/>  
+                       
+</apex:page>

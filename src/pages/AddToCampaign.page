@@ -1,0 +1,50 @@
+<apex:page standardController="Campaign" extensions="AddToCampaign_Controller" tabStyle="Campaign">   
+    <apex:form >
+        <apex:actionFunction name="callAction" action="{!callLookup}"/>
+        <apex:actionFunction name="callApexmethod" action="{!goAddCampaign}"/>
+        <apex:sectionHeader title="Add To Campaign"/>
+        <apex:pageBlock >
+            <apex:pageBlockSection title="Search Campaign" columns="1">
+                <apex:pageMessages />
+                <apex:inputText label="Search Campaign" style="float:left;" value="{!campaignName}">
+                    &nbsp;&nbsp;&nbsp;<apex:image value="https://api.icons8.com/download/19343120d27c16dd3e9d21ad3aa637f94fd4d5fa/Android_L/PNG/256/Very_Basic/search-256.png" height="20" onclick="callAction()"/>
+                </apex:inputText>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock >            
+            <apex:pageMessage summary="{!campListMsg}" severity="info" strength="2" /><br/>  
+            <apex:pageBlockSection title="{!listHeader}" showHeader="true" columns="1" >              
+                <apex:dataTable value="{!campaignList}" var="camp" align="Centre"
+                                columnsWidth="500" border="1" bgcolor="white">
+                    <apex:column width="20%" style="text-align:center;">
+                        <apex:facet name="header"><center>Campaign</center></apex:facet>
+                        <apex:commandLink value="{!camp.Name}" action="{!goAddCampaign}" style="color: darkblue; font-weight: bold;">
+                            <apex:param name="Send Campaid Id To Controller" value="{!camp.id}" assignto="{!CampaignId}" />
+                            <apex:param name="Send Contact Id To Controller" value="{!$CurrentPage.parameters.recordId}" assignto="{!ParentRecordId}" />
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column width="20%" style="text-align:center;">
+                    <apex:facet name="header"><center>MKT. Level Code</center></apex:facet>
+                    <apex:outputText value="{!camp.Mkt_Level_Code__c}"> </apex:outputText>
+                    </apex:column>
+                    <apex:column width="20%" style="text-align:center;">
+                    <apex:facet name="header"><center>Type</center></apex:facet>
+                    <apex:outputText value="{!camp.Type}"> </apex:outputText>
+                    </apex:column>                    
+                    <apex:column width="20%" style="text-align:center;">
+                    <apex:facet name="header"><center>Start Date</center></apex:facet>
+                    <apex:outputText value="{0, DATE, MMM dd',' yyyy}"> 
+                    	<apex:param value="{!camp.StartDate}"/>
+                    </apex:outputText>
+                    </apex:column>
+                    <apex:column width="20%" style="text-align:center;">
+					<apex:facet name="header"><center>End Date</center></apex:facet>
+                    <apex:outputText value="{0, DATE, MMM dd',' yyyy}">  
+                        <apex:param value="{!camp.EndDate}"/>
+                    </apex:outputText>
+                    </apex:column>
+                </apex:dataTable>                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
